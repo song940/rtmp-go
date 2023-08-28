@@ -17,7 +17,7 @@ func main() {
 		http.Handle("/runtime/", http.StripPrefix("/runtime/", http.FileServer(http.Dir("./runtime"))))
 		http.HandleFunc("/play.m3u8", hls.Handlehls(rtmpSrv.SubscriptionTopic))
 		http.HandleFunc("/play.flv", flv.Handleflv(rtmpSrv.SubscriptionTopic)) // http flv 播放
-		err := http.ListenAndServe("127.0.0.1:80", nil)
+		err := http.ListenAndServe("127.0.0.1:8080", nil)
 		panic(err)
 	}()
 	err := rtmpSrv.Listen("127.0.0.1:1935")

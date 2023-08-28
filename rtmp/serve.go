@@ -39,7 +39,10 @@ func (srv *Serve) handle(nc net.Conn) {
 		return
 	}
 	topic := conn.App + conn.Stream
-	log.Printf("[%s]-> rtmp push new topic: %s \n - - - - Play List - - - -  \n rtmp: rtmp://127.0.0.1:1935/%s  \n flv: http://127.0.0.1:80/play.flv?topic=%s \n hls: http://127.0.0.1:80/play.m3u8?topic=%s", ncaddr, topic, topic, topic, topic)
+	log.Println("topic:", topic)
+	log.Println("rtmp: rtmp://127.0.0.1:1935/" + topic)
+	log.Println("flv: http://127.0.0.1:8080/play.flv?topic=" + topic)
+	log.Println("hls: http://127.0.0.1:8080/play.m3u8?topic=" + topic)
 	if conn.IsPublish {
 		pubsub := srv.newPublisher(topic)
 		conn.handlePublishing(func(pk Pack) {
@@ -85,7 +88,6 @@ func (srv *Serve) AdapterRegister(al adapterlisten) {
 	srv.mu.Unlock()
 }
 
-//
 func (srv *Serve) SubscriptionTopic(topic string) (*PubSub, bool) {
 	if pubsub, ok := srv.Topic[topic]; ok {
 		return pubsub, true
