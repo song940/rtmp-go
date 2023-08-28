@@ -5,8 +5,10 @@
 ## 推流
 
 使用ffmpeg进行rtmp推流
-```
+
+```sh
 > ffmpeg -re -i <filename.mp4> -vcodec h264 -acodec aac -f flv rtmp://localhost/live/room
+> ffmpeg -f avfoundation -framerate 30 -i "1:0" -vcodec libx264 -preset ultrafast -tune zerolatency -acodec aac -strict -2 -f flv rtmp://localhost:1935/live/room
 ```
 
 使用obs studio进行rtmp推流
